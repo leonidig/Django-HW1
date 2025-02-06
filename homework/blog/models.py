@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+from django.urls import reverse
+
 # Create your models here.
 
 
@@ -13,6 +15,9 @@ class Product(models.Model):
     added_at = models.DateTimeField(auto_now_add=True)
     seller = models.ForeignKey(User, on_delete=models.CASCADE, related_name="products")
 
+    def get_absolute_url(self):
+        return reverse('blog:product_detail', args=[self.id])
+    
 
 class Order(models.Model):
     buyer = models.ForeignKey(User, on_delete=models.CASCADE, related_name="orders")

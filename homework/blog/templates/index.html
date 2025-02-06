@@ -1,5 +1,14 @@
-{% extends '__base.html' %}
+{% extends '__base.html' %} 
 
 {% block content %}
-    <h1>All Items</h1>
+    <h1>Main Page</h1>
+    {% for product in products %}
+
+        <div>
+        <h1>{{ product.name }}</h1>
+        <a href="{{ product.get_absolute_url }}">Перейти</a>
+        </div>
+
+    {% endfor %}
+
 {% endblock %}

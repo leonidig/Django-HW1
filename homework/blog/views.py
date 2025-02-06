@@ -1,24 +1,13 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 
-items = {
-    "Smartphone": {
-        "id": 1,
-        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-    },
-    "Laptop": {
-        "id": 2,
-        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-    },
-    "Keyboard": {
-        "id": 3,
-        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-    },
-    "Mouse": {
-        "id": 4,
-        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-    },
-}
+from .models import Product
 
 
-def items_list(request):
-    return render(request, "index.html")
+def home_page(request):
+    products = Product.objects.all()
+    return render(request, "index.html", {"products": products})
+
+
+def product_detail(request, product_id):
+    product = get_object_or_404(Product, id=product_id)  
+    return render(request, "product_info.html", {"product": product})
