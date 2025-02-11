@@ -2,13 +2,16 @@
 
 {% block content %}
     <h1>Main Page</h1>
+    <a href="{% url 'blog:create_product' %}">Create Product</a>
+
     {% for product in products %}
 
         <div>
         <h1>{{ product.name }}</h1>
-        <a href="{{ product.get_absolute_url }}">Перейти</a>
+        <a href="{{ product.get_absolute_url }}">Info</a>
         </div>
 
     {% endfor %}
 
+        
 {% endblock %}
