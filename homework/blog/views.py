@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
+from django.contrib import messages
 
 from .models import Product, User
 
@@ -11,6 +12,10 @@ def home_page(request):
 
 def product_detail(request, product_id):
     product = get_object_or_404(Product, id=product_id)  
+    if request.method == "POST":
+        product.delete()
+        messages.success(request, f"Product '{product.name}' deleted !")
+        return redirect("blog:home")
     return render(request, "product_info.html", {"product": product})\
     
 

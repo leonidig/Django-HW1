@@ -7,4 +7,9 @@
     <p>{{ product.price }}</p>
 </div>
 
+ <form action="{% url 'blog:product_detail' product.id %}" method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Delete</button>
+</form>
+
 {% endblock %}
