@@ -6,6 +6,11 @@ from django.urls import reverse
 # Create your models here.
 
 
+class Tag(models.Model):
+    name = models.CharField(max_length=40)
+
+    def __str__(self):
+        return self.name
 
 
 class Product(models.Model):
@@ -14,16 +19,8 @@ class Product(models.Model):
     price = models.IntegerField()
     added_at = models.DateTimeField(auto_now_add=True)
     seller = models.ForeignKey(User, on_delete=models.CASCADE, related_name="products")
+    tags = models.ManyToManyField(Tag, related_name="products")
 
     def get_absolute_url(self):
         return reverse('blog:product_detail', args=[self.id])
     
-
-class Order(models.Model):
-    buyer = models.ForeignKey(User, on_delete=models.CASCADE, related_name="orders")
-    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="orders")
-    quantity = models.PositiveIntegerField()
-    ordered_at = models.DateTimeField(auto_now_add=True)
-
-    def __repr__(self):
-        return f"Order({self.buyer}; {self.product}; {self.quantity}, {self.ordered_at})"

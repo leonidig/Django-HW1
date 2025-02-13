@@ -5,11 +5,20 @@
     <p>{{ product.name }}</p>
     <p>{{ product.description }}</p>
     <p>{{ product.price }}</p>
+
+    <h3>Tags:</h3>
+    <ul>
+        {% for tag in product.tags.all %}
+            <li>
+                <a href="{% url 'blog:get_product_by_tag' tag.id %}">{{ tag.name }}</a>
+            </li>
+        {% endfor %}
+    </ul>
 </div>
 
- <form action="{% url 'blog:product_detail' product.id %}" method="post">
-        {% csrf_token %}
-        <button type="submit" class="btn btn-danger">Delete</button>
+<form action="{% url 'blog:product_detail' product.id %}" method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Delete</button>
 </form>
 
 {% endblock %}
